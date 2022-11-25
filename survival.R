@@ -31,3 +31,14 @@ date_ex <-
   )
 date_ex
 Surv(lung$time, lung$status)[1:10]
+s1 <- survfit(Surv(time, status) ~ 1, data = lung)
+str(s1)
+survfit2(Surv(time, status) ~ 1, data = lung) %>% 
+  ggsurvfit() +
+  labs(
+    x = "Days",
+    y = "Overall survival probability"
+  ) + 
+  add_confidence_interval() +
+  add_risktable()
+summary(survfit(Surv(time, status) ~ 1, data = lung), time = 365.25)
